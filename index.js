@@ -4,7 +4,19 @@ const server = express();
 
 server.use(express.json());
 
+server.use(logRequests);
+
+let requisicoes = 0;
+
 const projetos = [];
+
+function logRequests(req, res, next) {
+  requisicoes++;
+
+  console.log(`Numero de requisições: ${requisicoes}`);
+
+  return next();
+}
 
 function verificaProjetos(req, res, next) {
   const { id } = req.params;
